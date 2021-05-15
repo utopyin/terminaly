@@ -1,0 +1,24 @@
+{
+  "name": "terminaly",
+  "version": "1.0.0",
+  "description": "A react terminal component provider.",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "terminal",
+    "terminaly",
+    "command",
+    "line",
+    "commands",
+    "cli"
+  ],
+  "author": "utopy",
+  "license": "ISC",
+  "devDependencies": {
+    "react": "^17.0.2",
+    "typescript": "^4.2.4"
+  }
+}
