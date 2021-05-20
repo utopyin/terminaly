@@ -1,6 +1,6 @@
 {
   "name": "terminaly",
-  "version": "1.0.0",
+  "version": "0.1.2",
   "description": "A react terminal component provider.",
   "main": "lib/index.js",
   "types": "lib",
@@ -15,10 +15,25 @@
     "commands",
     "cli"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/utopyin/terminaly.git"
+  },
+  "git": "git://github.com/utopyin/terminaly",
   "author": "utopy",
   "license": "ISC",
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "public-ip": "^4.0.3"
+  },
   "devDependencies": {
-    "react": "^17.0.2",
+    "@types/react": "^17.0.5",
+    "@types/react-highlight-words": "^0.16.2",
     "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "public-ip": "^4.0.3",
+    "react-contenteditable": "^3.3.5",
+    "react-highlight-words": "^0.17.0"
   }
 }

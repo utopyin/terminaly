@@ -1,0 +1,17 @@
+div#terminaly_outputs {
+  transition: all ease 0.3s;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+
+#terminaly_outputs .terminaly_output {
+  padding-top: 10px;
+  width: 100%;
+  outline: none;
+  border: none;
+  overflow-wrap: anywhere;
+  background: transparent;
+  padding: 5px 0;
+}
