@@ -24,7 +24,7 @@ export interface Output {
 const defaultStyle = {
   fontSize: "14px",
   color: "white",
-  keywordColor: "rgb(81, 246, 164)"
+  keywordColor: "red"
 }
 
 const Terminaly = ({
