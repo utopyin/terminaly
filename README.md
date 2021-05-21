@@ -1,16 +1,16 @@
 ## Quick start
 
-This code exports a terminaly component with the id ``peach`` and one custom command ``random`` that requires two arguments ``min`` and ``max``.
+This code exports a terminaly component with the id ``exemple`` and one custom command ``random`` that requires two arguments ``min`` and ``max``.
 When the user executes the command, it returns a random float between the first argument (min) and the second argument (max).
 
-*Exporting the instance is advised, as it will allow you to manipulate the terminaly created with this instance anywhere in the code.*
+*Exporting the instance is recommended, as it will allow you to manipulate the terminaly created with this instance anywhere in the code.*
 
 ```jsx
 import React from 'react';
 import Terminaly, { TerminalyWindow } from 'terminaly';
 
 export const terminalyInstance = new Terminaly({
-  id: 'peach', // default is '';
+  id: 'exemple', // default is '';
   customStyle: {
     maxWidth: '100%',
     maxHeight: '100%',
@@ -20,13 +20,13 @@ export const terminalyInstance = new Terminaly({
 })
 
 terminalyInstance.addCommand({
-  name: 'RANDOM', // must be in upper case
+  name: 'random',
   keywordColor: 'magenta',
   handler: (args) => {
-    let [min, max] = args;
-    min = parseInt(min);
-    max = parseInt(max);
-    const randomNumber = Math.random() * (max - min) + min;
+    const [min, max] = args;
+    const minInt = parseInt(min);
+    const maxInt = parseInt(max);
+    const randomNumber = Math.random() * (maxInt - minInt) + minInt;
     return {
         text: args.length ? `The generated number is ${randomNumber}.`
         : 'Two arguments are needed: (min, max)',
