@@ -7,7 +7,9 @@ export default class Terminaly {
     sessionName: string | undefined;
     commandHandler: EventEmitter;
     commands: commandInterface[];
+    addCommand: (command: commandInterface) => void;
+    addCommands: (commands: commandInterface[]) => void;
     keywords: commandKeywordInterface[];
-    constructor({ id, customCommands, customProps, customStyle, sessionName }: terminalyInterface);
+    constructor({ id, customProps, customStyle, sessionName }: terminalyInterface);
 }
 //# sourceMappingURL=terminal.d.ts.map
