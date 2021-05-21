@@ -6,7 +6,7 @@ import Terminaly, { TerminalyWindow } from 'terminaly';
 
 const terminalyInstance = new Terminaly({
   id: 'peach', // default is '';
-  commands: [
+  customCommands: [
     {
       name: 'TEST', // must be in upper case
       keywordColor: 'lightgreen',
@@ -24,8 +24,8 @@ const terminalyInstance = new Terminaly({
       keywordColor: 'orange',
       handler: (args) => {
         const [min, max] = args;
-        min = parseInt(min);
-        max = parseInt(max);
+        const min = parseInt(min);
+        const max = parseInt(max);
         const randomNumber = Math.random() * (max - min) + min;
         return {
            text: args.length ? `The generated number is ${randomNumber}.`
@@ -37,5 +37,5 @@ const terminalyInstance = new Terminaly({
   ]
 })
 
-const App = () => <TerminalyWindow {...terminalyInstance} />
+const Terminaly = () => <TerminalyWindow {...terminalyInstance} />
 ```
