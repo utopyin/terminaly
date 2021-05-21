@@ -54,7 +54,9 @@ export default function(keywords: commandKeywordInterface[], id: string) {
     const words = text.split(/(\s+)/)
     const output = words.map((word) => {
       const kWord = keywords.find(keyword => keyword.name == word.toUpperCase())
-      return kWord ? `<span class="terminaly_keyword" style="${kWord.color == 'default' ? null : `color: ${kWord.color}`}">${word}</span>`
+      return kWord ? 
+        `<span class="terminaly_keyword" style="${kWord.color == 'default'
+          ? null : `color: ${kWord.color}`}">${word}</span>`
         : word
     })
     return output.join('') + ' ';

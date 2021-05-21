@@ -22,7 +22,7 @@ export interface errorInterface {
 }
 export interface commandInterface {
     name: string;
-    keywordColor: string;
+    keywordColor?: string;
     handler(args: string[]): outputInterface;
 }
 export interface nativeCommandsInterface {
@@ -37,6 +37,6 @@ export interface terminalyInterface {
 }
 export interface commandKeywordInterface {
     name: string;
-    color: string;
+    color?: string;
 }
 //# sourceMappingURL=index.d.ts.map
