@@ -1,20 +1,6 @@
-import React from "react";
+/// <reference types="react" />
+import Terminaly from './terminal';
 import '../styles/index.css';
-interface customStyle extends React.CSSProperties {
-    keywordColor: string;
-}
-interface props {
-    sessionName?: string;
-    id?: string | number;
-    customProps: object;
-    customStyle: customStyle;
-}
-export interface Output {
-    text: string;
-    type: string;
-    onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    onHover?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-}
-declare const Terminaly: ({ sessionName, customProps, customStyle }: props) => JSX.Element;
+export declare function TerminalyWindow({ id, sessionName, customProps, customStyle, commandHandler, keywords, commands }: Terminaly): JSX.Element;
 export default Terminaly;
 //# sourceMappingURL=index.d.ts.map

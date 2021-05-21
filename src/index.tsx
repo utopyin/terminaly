@@ -1,73 +1,55 @@
-import React, { KeyboardEventHandler, useEffect, useState } from "react";
-import '../styles/index.css'
-import init from './init'
-import Outputs from './Outputs'
+import React, { useEffect, useState } from "react";
+import Outputs from './components/Outputs';
+import { init, handleKeyDown, handleInput, nativeFunctions } from './misc';
+import { outputInterface  } from './types'
+import Terminaly from './terminal'
 
-interface customStyle extends React.CSSProperties {
-  keywordColor: string;
-} 
-
-interface props {
-  sessionName?: string;
-  id?: string | number;
-  customProps: object;
-  customStyle: customStyle;
-}
-
-export interface Output {
-  text: string;
-  type: string;
-  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  onHover?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-}
+import '../styles/index.css';
 
 const defaultStyle = {
   fontSize: "14px",
   color: "white",
-  keywordColor: "red"
+  keywordColor: "rgb(81, 246, 164)"
 }
 
-const Terminaly = ({
+export function TerminalyWindow ({
+  id = "",
   sessionName,
   customProps,
-  customStyle
-}: props
-) => {
+  customStyle,
+  commandHandler,
+  keywords,
+  commands
+}: Terminaly) {
 
   const [IP, setIP] = useState<string | null>(null);
   const [inputText, setInputText] = useState<string | null>("");
-  const [outputs, setOutputs] = useState<Output[]>([]);
+  const [outputs, setOutputs] = useState<outputInterface[]>([]);
   const style = {...defaultStyle, ...customStyle};
 
-  useEffect(init.bind(null, setIP), [])
-  
-  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-    if (event.key != 'Enter') return;
-    (event.target as Element).innerHTML = '';
-    setOutputs(old => [...old, {text: inputText || '', type: 'success'}]);
-  }
+  const natives = nativeFunctions(setOutputs)
 
-  function handleInput(event: React.FormEvent<HTMLDivElement>) {
-    setInputText((event.target as Element).textContent)
-  }
+  useEffect(() => init(setIP, keywords, id, natives, commandHandler, commands), [])
 
   return (
     <div
       {...customProps}
-      id="terminaly_"
+      className='terminaly_'
+      id={`terminaly_${id}`}
       style={{
         ...style,
         ['--terminaly_keyword' as any]: style.keywordColor
       }}>
       <Outputs outputs={outputs}/>
-      <div id="terminaly_line">
+      <div className="terminaly_line">
         <p>{sessionName ? sessionName : IP ? IP : "user"}</p>
         <div
           contentEditable
-          onInput={handleInput}
-          onKeyDown={handleKeyDown}
+          onInput={(event) => handleInput(event, setInputText)}
+          onKeyDown={(event) => handleKeyDown(commandHandler, event, inputText)}
           spellCheck="false"
-          id="terminaly_field">
+          className='terminaly_field'
+          id={`terminaly_field_${id}`}>
         </div>
       </div>
     </div>

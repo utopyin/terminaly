@@ -1,17 +1,29 @@
-div#terminaly_outputs {
+div.terminaly_outputs {
   transition: all ease 0.3s;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   width: 100%;
+  padding: 10px 0;
 }
 
-#terminaly_outputs .terminaly_output {
+.terminaly_outputs .terminaly_output {
   padding-top: 10px;
-  width: 100%;
   outline: none;
   border: none;
   overflow-wrap: anywhere;
   background: transparent;
-  padding: 5px 0;
+  width: 100%;
+  padding: 7px 20px;
+  animation: terminaly_new_output 0.3s ease;
+}
+
+@keyframes terminaly_new_output {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

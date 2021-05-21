@@ -1,6 +1,7 @@
-export default function() {
-  const keywords = ["CD", "LS", "PWD", "MKDIR"];
-  const editor = document.getElementById('terminaly_field');
+import { commandKeywordInterface } from '../../types'
+
+export default function(keywords: commandKeywordInterface[], id: string) {
+  const editor = document.getElementById(`terminaly_field_${id}`);
   
   function getTextSegments(element: HTMLElement | ChildNode): Array<{text: string | null, node: ChildNode}> {
     const textSegments: Array<{text: string | null, node: ChildNode}> = [];
@@ -21,7 +22,7 @@ export default function() {
     return textSegments;
   }
     
-  function restoreSelection(absoluteAnchorIndex: number, absoluteFocusIndex: number) {
+  function restoreSelection(absoluteAnchorIndex: number | null, absoluteFocusIndex: number | null) {
     if (editor) {
       const sel = window.getSelection();
       if (sel) {
@@ -34,15 +35,15 @@ export default function() {
         textSegments.forEach(({text, node}) => {
           const startIndexOfNode = currentIndex;
           const endIndexOfNode = startIndexOfNode + (text ? text.length : 0);
-          if (startIndexOfNode <= absoluteAnchorIndex && absoluteAnchorIndex <= endIndexOfNode) {
+          if (absoluteAnchorIndex !== null && startIndexOfNode <= absoluteAnchorIndex && absoluteAnchorIndex <= endIndexOfNode) {
               anchorNode = node;
               anchorIndex = absoluteAnchorIndex - startIndexOfNode;
           }
-          if (startIndexOfNode <= absoluteFocusIndex && absoluteFocusIndex <= endIndexOfNode) {
+          if (absoluteFocusIndex !== null && startIndexOfNode <= absoluteFocusIndex && absoluteFocusIndex <= endIndexOfNode) {
               focusNode = node;
               focusIndex = absoluteFocusIndex - startIndexOfNode;
           }
-          text ? currentIndex += text.length : null;
+          currentIndex += text ? text.length : 0
         });
         sel.setBaseAndExtent(anchorNode,anchorIndex,focusNode,focusIndex);
       }
@@ -50,13 +51,13 @@ export default function() {
   }
   
   function renderText(text: string) {
-    const words = text.split(/(\s+)/);
+    const words = text.split(/(\s+)/)
     const output = words.map((word) => {
-      return keywords.includes(word.toUpperCase()) ? 
-        `<span class="terminaly_keyword">${word}</span>`
+      const kWord = keywords.find(keyword => keyword.name == word.toUpperCase())
+      return kWord ? `<span class="terminaly_keyword" style="${kWord.color == 'default' ? null : `color: ${kWord.color}`}">${word}</span>`
         : word
     })
-    return output.join('');
+    return output.join('') + ' ';
   }
 
   function updateEditor() {
@@ -65,8 +66,8 @@ export default function() {
       if (sel) {
         const textSegments = getTextSegments(editor);
         const textContent = textSegments.map(({text}) => text).join('');
-        let anchorIndex = 0;
-        let focusIndex = 0;
+        let anchorIndex = null;
+        let focusIndex = null;
         let currentIndex = 0;
         textSegments.forEach(({text, node}) => {
           if (node === sel.anchorNode) {

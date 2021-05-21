@@ -1,12 +1,12 @@
-div#terminaly_line {
+div.terminaly_line {
   padding-top: 10px;
   transition: all ease 0.3s;
   display: flex;
   align-items: flex-start;
-  background: linear-gradient(90deg, rgba(212, 175, 175, 0.034), rgba(255, 255, 255, 0.034));
+  background: var(--tmly-gadrient-black);
 }
 
-div#terminaly_line > p {
+div.terminaly_line > p {
   background: var(--tmly-gadrient);
   padding: 2px 15px 2px 10px;
   border: none;
@@ -14,7 +14,7 @@ div#terminaly_line > p {
   clip-path: polygon(0 0, 95% 0%, 100% 50%, 95% 100%, 0 100%, 0% 50%);
 }
 
-div#terminaly_line #terminaly_field {
+div.terminaly_line .terminaly_field {
   outline: none;
   border: none;
   overflow-wrap: anywhere;
@@ -24,6 +24,6 @@ div#terminaly_line #terminaly_field {
   color: white;
 }
 
-div#terminaly_line .terminaly_keyword {
+div.terminaly_line .terminaly_keyword {
   color: var(--terminaly_keyword);
 }
