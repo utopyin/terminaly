@@ -5,7 +5,13 @@ import React from 'react';
 import Terminaly, { TerminalyWindow } from 'terminaly';
 
 const terminalyInstance = new Terminaly({
-  id: 'peach', // default is '';
+  id: 'peach', // default is ''
+  customStyle: {
+    maxWidth: '100%',
+    maxHeight: '100%',
+    width: 700,
+    height: 400
+  },
   customCommands: [
     {
       name: 'TEST', // must be in upper case
