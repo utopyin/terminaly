@@ -12,8 +12,8 @@ const terminalyInstance = new Terminaly({
       keywordColor: 'lightgreen',
       handler: (args) => {
         return {
-           text: args.length ? `The arguments provided are ${args.join(', ')}.`
-            : 'No arguments provided.',
+           text: args.length ? `The argument${args.length > 1 ? 's' : ''} provided ${args.length > 1 ? 'are' : 'is'} ${args.join(', ')}.`
+            : 'No argument provided.',
            type: 'success',
            onClick: () => console.log('clicked!')
         }
