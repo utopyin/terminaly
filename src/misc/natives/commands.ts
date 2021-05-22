@@ -9,7 +9,16 @@ const commands: commandInterface[] = [
         text: `I'm bad at web developpement. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
         type: 'success'
       }
-    }
+    },
+    onArgumentError: (badArgs) => {
+      badArgs.forEach(arg => {
+        console.log(arg.message)
+      })
+    },
+    arguments: [{
+      required: false,
+      type: 'any'
+    }]
   },
   {
     name: 'LS', 
@@ -19,7 +28,16 @@ const commands: commandInterface[] = [
         text: `I'm bad at web developpement. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
         type: 'success'
       }
-    }
+    },
+    onArgumentError: (badArgs) => {
+      badArgs.forEach(arg => {
+        console.log(arg.message)
+      })
+    },
+    arguments: [{
+      required: false,
+      type: 'any'
+    }]
   },
   {
     name: 'PWD', 
@@ -29,7 +47,16 @@ const commands: commandInterface[] = [
         text: `I'm bad at web developpement. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
         type: 'success'
       }
-    }
+    },
+    onArgumentError: (badArgs) => {
+      badArgs.forEach(arg => {
+        console.log(arg.message)
+      })
+    },
+    arguments: [{
+      required: false,
+      type: 'any'
+    }]
   },
   {
     name: 'MKDIR', 
@@ -39,7 +66,16 @@ const commands: commandInterface[] = [
         text: `I'm bad at web developpement. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
         type: 'success'
       }
-    }
+    },
+    onArgumentError: (badArgs) => {
+      badArgs.forEach(arg => {
+        console.error(arg.message)
+      })
+    },
+    arguments: [{
+      required: false,
+      type: 'any'
+    }]
   }
 ]
 

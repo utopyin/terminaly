@@ -21,14 +21,22 @@ export interface outputInterface {
 
 export interface errorInterface {
   commandName: string;
-  args: string[];
   natives: nativeCommandsInterface;
+}
+
+export type argumentType = 'string' | 'number' | 'keyword' | 'link' | 'any';
+
+export interface argumentInterface {
+  required: boolean;
+  type: argumentType;
 }
 
 export interface commandInterface {
   name: string;
   keywordColor?: string;
+  onArgumentError?(badArgs: badArgsInterface[]): void;
   handler(args: string[]): outputInterface;
+  arguments: argumentInterface[];
 }
 
 export interface nativeCommandsInterface {
@@ -45,4 +53,15 @@ export interface terminalyInterface {
 export interface commandKeywordInterface {
   name: string,
   color?: string
+}
+
+export interface badArgsInterface {
+  argument: string | number | undefined;
+  message: string;
+}
+
+export interface checkArgsInterface {
+  argument: string | number | undefined;
+  isValid: boolean;
+  message: string;
 }

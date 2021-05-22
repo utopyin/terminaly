@@ -1,10 +1,10 @@
-import { nativeCommandsInterface, errorInterface } from '../types';
+import {  } from '../types';
 import { EventEmitter } from 'events';
 
 export function handleCommand(commandHandler: EventEmitter, input: string | undefined) {
   if (input) {
-    const args = input.split(/(\s+)/).map(arg => arg.trim()).filter(v => v !== '');
-    const commandName = args.shift()?.toUpperCase();
+    const args = input.trim().match(/[\S]*/g)?.filter(arg => arg.length);
+    const commandName = args?.shift()?.toUpperCase();
 
     commandName ? commandHandler.emit(commandName, args) ? null
       : commandHandler.emit('error', commandName)

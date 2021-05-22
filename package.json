@@ -23,8 +23,7 @@
   "author": "utopy",
   "license": "ISC",
   "peerDependencies": {
-    "react": ">=16.0.0",
-    "public-ip": "^4.0.3"
+    "react": ">=16.0.0"
   },
   "devDependencies": {
     "@types/events": "^3.0.0",
@@ -34,8 +33,6 @@
   },
   "dependencies": {
     "events": "^3.3.0",
-    "public-ip": "^4.0.3",
-    "react-contenteditable": "^3.3.5",
-    "react-highlight-words": "^0.17.0"
+    "public-ip": "^4.0.3"
   }
 }
