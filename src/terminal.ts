@@ -5,36 +5,36 @@ import { nativeCommands } from './misc/natives'
 export default class Terminaly {
 
   id;
+  sessionName;
   customProps;
   customStyle;
-  sessionName;
-  commandHandler;
+  keywords: commandKeywordInterface[];
   commands;
+  commandHandler;
   addCommand: (command: commandInterface) => void;
   addCommands: (commands: commandInterface[]) => void;
-  keywords: commandKeywordInterface[];
 
   constructor({
     id = '',
+    sessionName,
     customProps,
-    customStyle,
-    sessionName
+    customStyle
   }: terminalyInterface) {
     this.id = id;
-    this.commands = nativeCommands
+    this.sessionName = sessionName;
     this.customProps = customProps;
     this.customStyle = customStyle;
-    this.sessionName = sessionName;
-    this.commandHandler = new EventEmitter();
     this.keywords = [];
+    this.commands = nativeCommands
+    this.commandHandler = new EventEmitter();
     this.addCommand = (command) => {
       this.commands.push(command)
-      this.keywords.push({name: command.name, color: command.keywordColor})
+      this.keywords.push({name: command.name.toUpperCase(), color: command.keywordColor})
     };
     this.addCommands = (commands) => {
       commands.forEach(command => {
         this.commands.push(command)
-        this.keywords.push({name: command.name, color: command.keywordColor})
+        this.keywords.push({name: command.name.toUpperCase(), color: command.keywordColor})
       })
     };
   }

@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 export interface customStyleInterface extends CSSProperties {
-    keywordColor: string;
+    keywordColor?: string;
 }
 export interface terminalyWindowInterface {
     id: string | number;
@@ -29,8 +29,7 @@ export interface nativeCommandsInterface {
     echo: (output: outputInterface) => void;
 }
 export interface terminalyInterface {
-    id: string;
-    customCommands: commandInterface[];
+    id?: string;
     customProps?: object;
     customStyle?: customStyleInterface;
     sessionName?: string;
