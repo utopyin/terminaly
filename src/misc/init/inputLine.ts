@@ -51,15 +51,16 @@ export default function(keywords: commandKeywordInterface[], id: string) {
   }
   
   function renderText(text: string) {
-    const words = text.split(/(\s+)/)
-    const output = words.map((word) => {
-      const kWord = keywords.find(keyword => keyword.name == word.toUpperCase())
-      return kWord ? 
-        `<span class="terminaly_keyword" style="${kWord.color == 'default'
-          ? null : `color: ${kWord.color}`}">${word}</span>`
-        : word
+
+    keywords.forEach(keyword => {
+      const regex = new RegExp(`^${keyword.name}\\b`, 'i');
+      const keywordMatched = text.match(regex)?.join('');
+      text = text.replace(regex,
+        `<span class="terminaly_keyword" style="color: ${keyword.color == 'default' ? '' : keyword.color}">${keywordMatched}</span>`
+      );
     })
-    return output.join('') + ' ';
+
+    return text
   }
 
   function updateEditor() {
