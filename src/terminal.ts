@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { commandKeywordInterface, terminalyInterface, commandInterface } from './types'
+import { commandKeywordInterface, terminalyInterface, commandInterface, nativeFunctionsInterface, outputInterface } from './types'
 import { nativeCommands } from './misc/natives'
 
 export default class Terminaly {
@@ -8,9 +8,11 @@ export default class Terminaly {
   sessionName;
   customProps;
   customStyle;
-  keywords: commandKeywordInterface[];
   commands;
   commandHandler;
+  nativeHandler;
+  keywords: commandKeywordInterface[];
+  echo: (output: outputInterface) => void;
   addCommand: (command: commandInterface) => void;
   addCommands: (commands: commandInterface[]) => void;
 
@@ -27,15 +29,23 @@ export default class Terminaly {
     this.keywords = [];
     this.commands = nativeCommands
     this.commandHandler = new EventEmitter();
+    this.nativeHandler = new EventEmitter();
+    this.echo = (output: outputInterface) => {
+      nativeEmit('echo', output)
+    }
     this.addCommand = (command) => {
       this.commands.push(command)
-      this.keywords.push({name: command.name.toUpperCase(), color: command.keywordColor})
+      this.keywords.push({name: command.name, color: command.keywordColor})
     };
     this.addCommands = (commands) => {
       commands.forEach(command => {
         this.commands.push(command)
-        this.keywords.push({name: command.name.toUpperCase(), color: command.keywordColor})
+        this.keywords.push({name: command.name, color: command.keywordColor})
       })
     };
+    
+    const nativeEmit = (eventName: string, ...args: any[]) => {
+      this.nativeHandler.emit(eventName, ...args);
+    }
   }
 }

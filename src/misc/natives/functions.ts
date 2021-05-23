@@ -1,6 +1,6 @@
-import { outputInterface, nativeCommandsInterface } from '../../types/'
+import { outputInterface, nativeFunctionsInterface } from '../../types/'
 
-export default (setOutputs: React.Dispatch<React.SetStateAction<any>>): nativeCommandsInterface => {
+export default (setOutputs: React.Dispatch<React.SetStateAction<any>>): nativeFunctionsInterface => {
 
   function addOutput(output: outputInterface) {
     setOutputs((old: outputInterface[]) => [...old, output])

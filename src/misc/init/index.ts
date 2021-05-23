@@ -1,17 +1,20 @@
+/// <reference lib="es2017.object"/>
+
 import inputLine from './inputLine';
 import ip from './ip';
 import commandHandling from './commandHandler';
 import { EventEmitter } from 'events'
-import { commandKeywordInterface, nativeCommandsInterface, commandInterface } from '../../types'
+import { commandKeywordInterface, nativeFunctionsInterface, commandInterface } from '../../types'
 
 export default (setIP: React.Dispatch<React.SetStateAction<string | null>>,
   keywords: commandKeywordInterface[],
   id: string,
-  natives: nativeCommandsInterface,
+  natives: nativeFunctionsInterface,
   commandHandler: EventEmitter,
-  commands: commandInterface[]
+  nativeHandler: EventEmitter,
+  commands: commandInterface[],
 ) => {
   ip(setIP);
-  commandHandling(natives, commandHandler, commands, keywords);
+  commandHandling(natives, commandHandler, nativeHandler, commands, keywords);
   inputLine(keywords, id);
 }

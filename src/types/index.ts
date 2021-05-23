@@ -21,7 +21,7 @@ export interface outputInterface {
 
 export interface errorInterface {
   commandName: string;
-  natives: nativeCommandsInterface;
+  natives: nativeFunctionsInterface;
 }
 
 export type argumentType = 'string' | 'number' | 'keyword' | 'link' | 'any';
@@ -39,7 +39,7 @@ export interface commandInterface {
   arguments: argumentInterface[];
 }
 
-export interface nativeCommandsInterface {
+export interface nativeFunctionsInterface {
   echo: (output: outputInterface) => void
 }
 

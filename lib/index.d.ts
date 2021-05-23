@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import Terminaly from './terminal';
+import TerminalyInstance from './terminal';
 import '../styles/index.css';
-export declare function TerminalyWindow({ id, sessionName, customProps, customStyle, commandHandler, keywords, commands }: Terminaly): JSX.Element;
-export default Terminaly;
+export declare function TerminalyWindow({ id, sessionName, customProps, customStyle, commandHandler, nativeHandler, keywords, commands }: TerminalyInstance): JSX.Element;
+export default TerminalyInstance;
 //# sourceMappingURL=index.d.ts.map

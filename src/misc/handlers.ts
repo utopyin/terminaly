@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 export function handleCommand(commandHandler: EventEmitter, input: string | undefined) {
   if (input) {
     const args = input.trim().match(/[\S]*/g)?.filter(arg => arg.length);
-    const commandName = args?.shift()?.toUpperCase();
+    const commandName = args?.shift();
 
     commandName ? commandHandler.emit(commandName, args) ? null
       : commandHandler.emit('error', commandName)

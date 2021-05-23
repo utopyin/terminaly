@@ -17,7 +17,7 @@ export interface outputInterface {
 }
 export interface errorInterface {
     commandName: string;
-    natives: nativeCommandsInterface;
+    natives: nativeFunctionsInterface;
 }
 export declare type argumentType = 'string' | 'number' | 'keyword' | 'link' | 'any';
 export interface argumentInterface {
@@ -31,7 +31,7 @@ export interface commandInterface {
     handler(args: string[]): outputInterface;
     arguments: argumentInterface[];
 }
-export interface nativeCommandsInterface {
+export interface nativeFunctionsInterface {
     echo: (output: outputInterface) => void;
 }
 export interface terminalyInterface {

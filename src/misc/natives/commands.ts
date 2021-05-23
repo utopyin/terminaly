@@ -2,7 +2,7 @@ import { commandInterface } from '../../types'
 
 const commands: commandInterface[] = [
   {
-    name: 'CD', 
+    name: 'cd', 
     keywordColor: 'default',
     handler: (args) => {
       return {
@@ -21,7 +21,7 @@ const commands: commandInterface[] = [
     }]
   },
   {
-    name: 'LS', 
+    name: 'ls', 
     keywordColor: 'default',
     handler: (args) => {
       return {
@@ -40,7 +40,7 @@ const commands: commandInterface[] = [
     }]
   },
   {
-    name: 'PWD', 
+    name: 'pwd', 
     keywordColor: 'default',
     handler: (args) => {
       return {
@@ -59,7 +59,7 @@ const commands: commandInterface[] = [
     }]
   },
   {
-    name: 'MKDIR', 
+    name: 'mkdir', 
     keywordColor: 'default',
     handler: (args) => {
       return {

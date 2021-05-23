@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Outputs from './components/Outputs';
 import { init, handleKeyDown, handleInput, nativeFunctions } from './misc';
 import { outputInterface  } from './types'
-import Terminaly from './terminal'
+import TerminalyInstance from './terminal'
 
 import '../styles/index.css';
 
@@ -18,9 +18,10 @@ export function TerminalyWindow ({
   customProps,
   customStyle,
   commandHandler,
+  nativeHandler,
   keywords,
   commands
-}: Terminaly) {
+}: TerminalyInstance) {
 
   const [IP, setIP] = useState<string | null>(null);
   const [inputText, setInputText] = useState<string | null>("");
@@ -29,7 +30,7 @@ export function TerminalyWindow ({
 
   const natives = nativeFunctions(setOutputs)
 
-  useEffect(() => init(setIP, keywords, id, natives, commandHandler, commands), [])
+  useEffect(() => init(setIP, keywords, id, natives, commandHandler, nativeHandler, commands), [])
 
   return (
     <div
@@ -56,4 +57,4 @@ export function TerminalyWindow ({
   )
 }
 
-export default Terminaly
+export default TerminalyInstance

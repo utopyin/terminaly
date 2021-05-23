@@ -1,4 +1,4 @@
-import { nativeCommandsInterface, commandInterface, commandKeywordInterface, argumentInterface, checkArgsInterface, badArgsInterface } from '../../types'
+import { nativeFunctionsInterface, commandInterface, commandKeywordInterface, argumentInterface, checkArgsInterface, badArgsInterface, outputInterface } from '../../types'
 import { EventEmitter } from 'events'
 
 function checkArgs(arguments_: argumentInterface[], args: any): checkArgsInterface[] {
@@ -19,28 +19,32 @@ function checkArgs(arguments_: argumentInterface[], args: any): checkArgsInterfa
             message: ''
           }
         case 'string':
+          const isString = /(^'.+'$)|(^".+"$)/g.test(args[index])
           return {
             argument: args[index],
-            isValid: /(^'.+'$)|(^".+"$)/g.test(args[index]),
-            message: `${/(^'.+'$)|(^".+"$)/g.test(args[index]) ? '' : `${args[index]} should be a string.`}`
+            isValid: isString,
+            message: `${isString ? '' : `${args[index]} should be a string.`}`
           }
         case 'number':
+          const isNumber = /[0-9]/g.test(args[index])
           return {
             argument: args[index],
-            isValid: /[0-9]/g.test(args[index]),
-            message: `${/[0-9]/g.test(args[index]) ? '' : `${args[index]} should be a number.`}`
+            isValid: isNumber,
+            message: `${isNumber ? '' : `${args[index]} should be a number.`}`
           }
         case 'link':
+          const isLink = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g.test(args[index])
           return {
             argument: args[index],
-            isValid: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g.test(args[index]),
-            message: `${/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g.test(args[index]) ? '' : `${args[index]} should be a link.`}`
+            isValid: isLink,
+            message: `${isLink ? '' : `${args[index]} should be a link.`}`
           }
         case 'keyword':
+          const isKeyword = !(/\W/g.test(args[index]))
           return {
             argument: args[index],
-            isValid: !(/\W/g.test(args[index])),
-            message: `${!(/\W/g.test(args[index])) ? '' : `${args[index]} should be a keyword.`}`
+            isValid: isKeyword,
+            message: `${isKeyword ? '' : `${args[index]} should be a keyword.`}`
           }
       }
     })
@@ -48,8 +52,9 @@ function checkArgs(arguments_: argumentInterface[], args: any): checkArgsInterfa
 }
 
 export default (
-  natives: nativeCommandsInterface,
+  natives: nativeFunctionsInterface,
   commandHandler: EventEmitter,
+  nativeHandler: EventEmitter,
   commands: commandInterface[],
   keywords: commandKeywordInterface[]
 ) => {
@@ -65,21 +70,28 @@ export default (
     command.onArgumentError && command.onArgumentError(badArgs);
   });
 
+  nativeHandler.on('echo', (output: outputInterface) => {
+    natives.echo(output);
+  })
+
   commands.forEach(command => {
-    commandHandler.on(command.name.toUpperCase(), args => {
-      const parsedArgs = checkArgs(command.arguments, args)
+    commandHandler.on(command.name, args => {
+      const parsedArgs = checkArgs(command.arguments, args);
       parsedArgs.every(argument => argument.isValid)
-        ? natives.echo(command.handler(args))
-        : commandHandler.emit(
-          'argument_error',
-          command,
-          parsedArgs.filter(({isValid}) => !isValid)
-            .map(arg => {
-              return {argument: arg.argument, message: arg.message}
-            })
-        )
+        ? (() => {
+          const output = command.handler(args);
+          output && natives.echo(output);
+        })()
+        : commandHandler.emit('argument_error',
+            command,
+            parsedArgs
+              .filter(({isValid}) => !isValid)
+              .map(arg => {
+                return { argument: arg.argument, message: arg.message }
+              })
+        );
     })
-    keywords.push({name: command.name.toUpperCase(), color: command.keywordColor })
+    keywords.push({ name: command.name, color: command.keywordColor })
   })
 
 }
