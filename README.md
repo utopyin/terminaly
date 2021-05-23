@@ -1,4 +1,4 @@
-![banner](https://i.ibb.co/Dp4tnVX/terminaly.png)
+![banner](https://i.ibb.co/LCrNNqZ/terminaly.png)
 
 ## Quick start
 
