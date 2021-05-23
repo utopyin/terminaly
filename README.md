@@ -1,3 +1,5 @@
+![banner](https://i.ibb.co/Dp4tnVX/terminaly.png)
+
 ## Quick start
 
 This code exports a terminaly component with the id ``exemple`` and one custom command ``random`` that requires two arguments ``min`` and ``max``.
