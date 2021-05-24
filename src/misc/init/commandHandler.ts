@@ -74,11 +74,6 @@ export default (
     natives.echo(output);
   })
 
-  nativeHandler.on('dl', (output: outputInterface) => {
-    output.attachements?.forEach(element => {
-      natives.dl(element)
-    });
-  })
 
   commands.forEach(command => {
     commandHandler.on(command.name, args => {

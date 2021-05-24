@@ -3,6 +3,12 @@ export interface customStyleInterface extends CSSProperties {
     keywordColor?: string;
     hideBar?: boolean;
 }
+export interface OutputsProps {
+    outputs: outputInterface[];
+}
+export interface AttachsProps {
+    attachments: attachementsInterface[] | undefined;
+}
 export interface terminalyWindowInterface {
     id: string | number;
     customCommands: commandInterface[];
@@ -13,7 +19,7 @@ export interface terminalyWindowInterface {
 export interface outputInterface {
     text: string;
     type: outputType;
-    attachements?: attachementsInterface[];
+    attachments?: attachementsInterface[];
     onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     onMouseOver?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
@@ -36,7 +42,6 @@ export interface commandInterface {
 }
 export interface nativeFunctionsInterface {
     echo: (output: outputInterface) => void;
-    dl: (file: fileInterface) => void;
 }
 export interface terminalyInterface {
     id?: string;
@@ -57,12 +62,8 @@ export interface checkArgsInterface {
     isValid: boolean;
     message: string;
 }
-export interface fileInterface {
-    link: string;
-    filename: string;
-}
 export interface attachementsInterface {
-    image?: string;
-    file: string;
+    filename?: string;
+    link: string;
 }
 //# sourceMappingURL=index.d.ts.map

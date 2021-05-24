@@ -1,11 +1,53 @@
 import React from 'react'
-import { outputInterface } from '../types'
+import { attachementsInterface, outputInterface, AttachsProps, OutputsProps } from '../types'
 
-interface OutputsProps {
-  outputs: outputInterface[]
+function fetcha(link: string) : void {
+  fetch(link, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/pdf',
+    },
+  })
+  .then((response) => response.blob())
+  .then((blob) => {
+    // Create blob link to download
+    const url = window.URL.createObjectURL(
+      new Blob([blob]),
+    );
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute(
+      'download',
+      `FileName.png`,
+    );
+
+    // Append to html link element page
+    document.body.appendChild(link);
+
+    // Start download
+    link.click();
+
+    // Clean up and remove the link
+    link.parentNode?.removeChild(link);
+  });
 }
 
-function Output({text, onMouseOver, onClick}: outputInterface) {
+function Attach(file: attachementsInterface) {
+  return <div className='attachment-object' onClick={() => fetcha(file.link)}><span className='terminaly_attachment'>Click to download {file.filename}.</span></div>
+}
+
+
+function Attachs({attachments}: AttachsProps) {
+  return (
+    <div className="attachments-container">
+      {attachments?.map(file => {
+        return <Attach key={file.filename}{...file}/>
+      })}
+    </div>
+  )
+}
+
+function Output({text, onMouseOver, onClick, attachments}: outputInterface) {
   return (
     <div className="terminaly_output">
       <span
@@ -13,6 +55,7 @@ function Output({text, onMouseOver, onClick}: outputInterface) {
         onClick={onClick}
         onMouseOver={onMouseOver}>
       </span>
+      <Attachs attachments={attachments}/>
     </div>
   )
 }

@@ -5,6 +5,14 @@ export interface customStyleInterface extends CSSProperties {
   hideBar?: boolean;
 }
 
+export interface OutputsProps {
+  outputs: outputInterface[]
+}
+
+export interface AttachsProps {
+  attachments: attachementsInterface[] | undefined
+}
+
 export interface terminalyWindowInterface {
   id: string | number;
   customCommands: commandInterface[];
@@ -16,7 +24,7 @@ export interface terminalyWindowInterface {
 export interface outputInterface {
   text: string;
   type: outputType;
-  attachements? : attachementsInterface[];
+  attachments? : attachementsInterface[];
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onMouseOver?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
@@ -44,7 +52,6 @@ export interface commandInterface {
 
 export interface nativeFunctionsInterface {
   echo: (output: outputInterface) => void;
-  dl: (file : attachementsInterface) => void
 }
 
 export interface terminalyInterface {
@@ -70,8 +77,12 @@ export interface checkArgsInterface {
   message: string;
 }
 
+/**
+ * Warning
+ * @param link must be an URL link and not an file relative path
+ */
 
 export interface attachementsInterface {
-  image? : string;
-  file : string;
+  filename? : string;
+  link : string;
 }
