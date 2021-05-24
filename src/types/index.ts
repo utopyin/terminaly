@@ -16,6 +16,7 @@ export interface terminalyWindowInterface {
 export interface outputInterface {
   text: string;
   type: outputType;
+  attachements? : attachementsInterface[];
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onMouseOver?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
@@ -43,7 +44,7 @@ export interface commandInterface {
 
 export interface nativeFunctionsInterface {
   echo: (output: outputInterface) => void;
-  dl: (file : fileInterface) => void
+  dl: (file : attachementsInterface) => void
 }
 
 export interface terminalyInterface {
@@ -69,7 +70,8 @@ export interface checkArgsInterface {
   message: string;
 }
 
-export interface fileInterface {
-  link : string;
-  filename : string;
+
+export interface attachementsInterface {
+  image? : string;
+  file : string;
 }

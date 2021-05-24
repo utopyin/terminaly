@@ -62,7 +62,7 @@ export default (
   commandHandler.on('error', (commandName: string) => {
     natives.echo({
       text: `The command <span style="color: red">${commandName}</span> does not exist.`,
-      type: 'error'
+      type: 'error',
     })
   });
 
@@ -74,13 +74,19 @@ export default (
     natives.echo(output);
   })
 
+  nativeHandler.on('dl', (output: outputInterface) => {
+    output.attachements?.forEach(element => {
+      natives.dl(element)
+    });
+  })
+
   commands.forEach(command => {
     commandHandler.on(command.name, args => {
       const parsedArgs = checkArgs(command.arguments, args);
       parsedArgs.every(argument => argument.isValid)
         ? (() => {
           const output = command.handler(args);
-          natives.dl({filename : 'logo', link :'../logo.svg'})
+          natives.dl({file :'logo.svg'})
           output && natives.echo(output);
         })()
         : commandHandler.emit('argument_error',

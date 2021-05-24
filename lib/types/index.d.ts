@@ -13,6 +13,7 @@ export interface terminalyWindowInterface {
 export interface outputInterface {
     text: string;
     type: outputType;
+    attachements?: attachementsInterface[];
     onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     onMouseOver?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
@@ -59,5 +60,9 @@ export interface checkArgsInterface {
 export interface fileInterface {
     link: string;
     filename: string;
+}
+export interface attachementsInterface {
+    image?: string;
+    file: string;
 }
 //# sourceMappingURL=index.d.ts.map
