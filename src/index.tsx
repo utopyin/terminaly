@@ -35,6 +35,11 @@ export function TerminalyWindow ({
   useEffect(() => init(setIP, keywords, id, natives, commandHandler, nativeHandler, commands), [])
 
   useEffect(() => {
+    const editor = document.querySelector(`#terminaly_${id}`)
+    editor?.scroll(0, editor?.scrollHeight)
+  }, [outputs])
+
+  useEffect(() => {
     if (cmdHistoryIndex !== null) {
       const editor = document.querySelector(`#terminaly_field_${id}`);
       if (cmdHistory[cmdHistoryIndex] !== undefined) {
@@ -58,34 +63,38 @@ export function TerminalyWindow ({
 
   return (
     <div
+      className="terminaly_container"
       {...customProps}
-      className='terminaly_'
-      id={`terminaly_${id}`}
       style={{
         ...style,
         ['--terminaly_keyword' as any]: style.keywordColor
       }}>
-      <Outputs outputs={outputs}/>
-      <div className="terminaly_line">
-        <p>{sessionName ? sessionName : IP ? IP : "user"}</p>
-        <div
-          contentEditable
-          onInput={(event) => handleInput(event, setInputText)}
-          onKeyDown={(event) => {
-            handleKeyDown(
-              commandHandler,
-              event,
-              inputText,
-              cmdHistory,
-              setCmdHistory,
-              setCmdHistoryIndex
-            )
-          }}
-          spellCheck="false"
-          className='terminaly_field'
-          id={`terminaly_field_${id}`}>
+      <div
+        className='terminaly_'
+        id={`terminaly_${id}`}>
+        <Outputs outputs={outputs}/>
+        <div className="terminaly_line">
+          <p>{sessionName ? sessionName : IP ? IP : "user"}</p>
+          <div
+            contentEditable
+            onInput={(event) => handleInput(event, setInputText)}
+            onKeyDown={(event) => {
+              handleKeyDown(
+                commandHandler,
+                event,
+                inputText,
+                cmdHistory,
+                setCmdHistory,
+                setCmdHistoryIndex
+              )
+            }}
+            spellCheck="false"
+            className='terminaly_field'
+            id={`terminaly_field_${id}`}>
+          </div>
         </div>
       </div>
+      {!customStyle?.hideBar && <div className="terminaly_bar"></div>}
     </div>
   )
 }

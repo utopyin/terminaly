@@ -3,7 +3,6 @@ import { EventEmitter } from 'events';
 
 export function handleCommand(commandHandler: EventEmitter, input: string | undefined) {
   if (input) {
-    console.log(input)
     const args = input.trim().match(/[\S]*/g)?.filter(arg => arg.length);
     const commandName = args?.shift();
 

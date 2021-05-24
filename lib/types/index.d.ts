@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react';
 export interface customStyleInterface extends CSSProperties {
     keywordColor?: string;
+    hideBar?: boolean;
 }
 export interface terminalyWindowInterface {
     id: string | number;

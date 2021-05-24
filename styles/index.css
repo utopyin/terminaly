@@ -33,12 +33,19 @@
   display: none;
 }
 
-.terminaly_:after {
-  content: "";
+.terminaly_container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.terminaly_bar {
   width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 10px;
+  height: 5px;
   background: linear-gradient(90deg, rgb(255, 68, 68), rgb(119, 81, 246), rgb(81, 246, 164));
 }

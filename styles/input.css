@@ -4,6 +4,7 @@ div.terminaly_line {
   display: flex;
   align-items: flex-start;
   background: var(--tmly-gadrient-black);
+  margin-bottom: 15px;  
 }
 
 div.terminaly_line > p {
