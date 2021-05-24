@@ -36,16 +36,20 @@ export default function(keywords: commandKeywordInterface[], id: string) {
           const startIndexOfNode = currentIndex;
           const endIndexOfNode = startIndexOfNode + (text ? text.length : 0);
           if (absoluteAnchorIndex !== null && startIndexOfNode <= absoluteAnchorIndex && absoluteAnchorIndex <= endIndexOfNode) {
-              anchorNode = node;
-              anchorIndex = absoluteAnchorIndex - startIndexOfNode;
+            anchorNode = node;
+            anchorIndex = absoluteAnchorIndex - startIndexOfNode;
+          } else {
+            console.log(absoluteFocusIndex)
           }
           if (absoluteFocusIndex !== null && startIndexOfNode <= absoluteFocusIndex && absoluteFocusIndex <= endIndexOfNode) {
-              focusNode = node;
-              focusIndex = absoluteFocusIndex - startIndexOfNode;
+            focusNode = node;
+            focusIndex = absoluteFocusIndex - startIndexOfNode;
+          } else {
+            console.log(absoluteFocusIndex)
           }
           currentIndex += text ? text.length : 0
         });
-        sel.setBaseAndExtent(anchorNode,anchorIndex,focusNode,focusIndex);
+        sel.setBaseAndExtent(anchorNode, anchorIndex, focusNode, focusIndex);
       }
     }
   }

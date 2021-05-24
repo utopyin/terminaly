@@ -8,9 +8,43 @@ export default (setOutputs: React.Dispatch<React.SetStateAction<any>>): nativeFu
 
   return {
     echo: (output) => addOutput(output),
-    dl : (file) => addOutput({
-      text : `<a href='https://scontent-mrs2-1.cdninstagram.com/v/t51.2885-19/s150x150/62410974_816985208702149_8487796215251992576_n.jpg?tp=1&_nc_ht=scontent-mrs2-1.cdninstagram.com&_nc_ohc=kYjOTvxPL9MAX9rije7&edm=ABfd0MgBAAAA&ccb=7-4&oh=ae5a2ce0dc1c65fe95b9d9b4aef8e08b&oe=60B32382&_nc_sid=7bff83' download>Click to download</a>`,
-      type : 'success'
-    })
+    dl : (file) =>{
+      function fetcha(link: string) {
+        fetch(link, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        })
+        .then((response) => response.blob())
+        .then((blob) => {
+          // Create blob link to download
+          const url = window.URL.createObjectURL(
+            new Blob([blob]),
+          );
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute(
+            'download',
+            `FileName.png`,
+          );
+
+          // Append to html link element page
+          document.body.appendChild(link);
+
+          // Start download
+          link.click();
+
+          // Clean up and remove the link
+          link.parentNode?.removeChild(link);
+        });
+      }
+
+      addOutput({
+        text : `<a href="">Click to download ${file.filename}.</a>`,
+        type : 'success',
+        onClick: fetcha.bind(null, file.link),
+      })
+    }
   }
 }
