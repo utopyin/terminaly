@@ -31,7 +31,7 @@ export function TerminalyWindow ({
   const style = {...defaultStyle, ...customStyle};
 
   const natives = nativeFunctions(setOutputs)
-
+  
   useEffect(() => init(setIP, keywords, id, natives, commandHandler, nativeHandler, commands), [])
 
   useEffect(() => {

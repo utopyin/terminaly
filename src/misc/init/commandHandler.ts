@@ -80,7 +80,6 @@ export default (
       parsedArgs.every(argument => argument.isValid)
         ? (() => {
           const output = command.handler(args);
-          natives.dl({filename : 'logo', link :'../logo.svg'})
           output && natives.echo(output);
         })()
         : commandHandler.emit('argument_error',

@@ -17,6 +17,4 @@ export default (setIP: React.Dispatch<React.SetStateAction<string | null>>,
   ip(setIP);
   commandHandling(natives, commandHandler, nativeHandler, commands, keywords);
   inputLine(keywords, id);
-
-  
 }
