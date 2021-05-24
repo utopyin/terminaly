@@ -6,7 +6,7 @@ const commands: commandInterface[] = [
     keywordColor: 'default',
     handler: (args) => {
       return {
-        text: `I'm bad at web developpement. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
+        text: `This a test. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
         type: 'success'
       }
     },
@@ -25,7 +25,7 @@ const commands: commandInterface[] = [
     keywordColor: 'default',
     handler: (args) => {
       return {
-        text: `I'm bad at web developpement. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
+        text: `This a test. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
         type: 'success'
       }
     },
@@ -44,7 +44,7 @@ const commands: commandInterface[] = [
     keywordColor: 'default',
     handler: (args) => {
       return {
-        text: `I'm bad at web developpement. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
+        text: `This a test. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
         type: 'success'
       }
     },
@@ -63,7 +63,7 @@ const commands: commandInterface[] = [
     keywordColor: 'default',
     handler: (args) => {
       return {
-        text: `I'm bad at web developpement. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
+        text: `This a test. ${args.length ? `Your arguments were <span style="color: var(--terminaly_keyword)">${args.join(', ')}</span> !` : ''}`,
         type: 'success'
       }
     },

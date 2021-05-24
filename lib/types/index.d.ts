@@ -11,7 +11,7 @@ export interface terminalyWindowInterface {
 }
 export interface outputInterface {
     text: string;
-    type: string;
+    type: outputType;
     onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     onMouseOver?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
@@ -20,6 +20,7 @@ export interface errorInterface {
     natives: nativeFunctionsInterface;
 }
 export declare type argumentType = 'string' | 'number' | 'keyword' | 'link' | 'any';
+export declare type outputType = 'success' | 'error' | 'link' | 'help' | 'any';
 export interface argumentInterface {
     required: boolean;
     type: argumentType;

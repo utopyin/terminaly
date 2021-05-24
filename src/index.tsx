@@ -6,6 +6,8 @@ import TerminalyInstance from './terminal'
 
 import '../styles/index.css';
 
+
+
 const defaultStyle = {
   fontSize: "14px",
   color: "white",
@@ -26,11 +28,32 @@ export function TerminalyWindow ({
   const [IP, setIP] = useState<string | null>(null);
   const [inputText, setInputText] = useState<string | null>("");
   const [outputs, setOutputs] = useState<outputInterface[]>([]);
+  const [cmdHistory, setCmdHistory] = useState<string[]>([]);
+  const [cmdHistoryIndex, setCmdHistoryIndex] = useState<number | null>(null);
   const style = {...defaultStyle, ...customStyle};
 
   const natives = nativeFunctions(setOutputs)
 
   useEffect(() => init(setIP, keywords, id, natives, commandHandler, nativeHandler, commands), [])
+
+  useEffect(() => {
+    if (cmdHistoryIndex !== null) {
+      const editor = document.querySelector(`#terminaly_field_${id}`);
+      if (cmdHistory[cmdHistoryIndex] !== undefined) {
+        if (editor !== null) {
+          editor.innerHTML = cmdHistory[cmdHistoryIndex]
+          const range = document.createRange();
+          const sel = window.getSelection();
+          range.selectNodeContents(editor);
+          range.collapse(false);
+          sel?.removeAllRanges();
+          sel?.addRange(range);
+          (editor as HTMLDivElement).focus();
+          range.detach();
+        }
+      }
+    }
+  }, [cmdHistoryIndex])
 
   return (
     <div
@@ -47,7 +70,16 @@ export function TerminalyWindow ({
         <div
           contentEditable
           onInput={(event) => handleInput(event, setInputText)}
-          onKeyDown={(event) => handleKeyDown(commandHandler, event, inputText)}
+          onKeyDown={(event) => {
+            handleKeyDown(
+              commandHandler,
+              event,
+              inputText,
+              cmdHistory,
+              setCmdHistory,
+              setCmdHistoryIndex
+            )
+          }}
           spellCheck="false"
           className='terminaly_field'
           id={`terminaly_field_${id}`}>

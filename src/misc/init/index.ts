@@ -12,7 +12,7 @@ export default (setIP: React.Dispatch<React.SetStateAction<string | null>>,
   natives: nativeFunctionsInterface,
   commandHandler: EventEmitter,
   nativeHandler: EventEmitter,
-  commands: commandInterface[],
+  commands: commandInterface[]
 ) => {
   ip(setIP);
   commandHandling(natives, commandHandler, nativeHandler, commands, keywords);
