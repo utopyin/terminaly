@@ -42,7 +42,8 @@ export interface commandInterface {
 }
 
 export interface nativeFunctionsInterface {
-  echo: (output: outputInterface) => void
+  echo: (output: outputInterface) => void;
+  dl: (file : fileInterface) => void
 }
 
 export interface terminalyInterface {
@@ -66,4 +67,9 @@ export interface checkArgsInterface {
   argument: string | number | undefined;
   isValid: boolean;
   message: string;
+}
+
+export interface fileInterface {
+  link : string;
+  filename : string;
 }

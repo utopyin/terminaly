@@ -7,6 +7,10 @@ export default (setOutputs: React.Dispatch<React.SetStateAction<any>>): nativeFu
   }
 
   return {
-    echo: (output) => addOutput(output)
+    echo: (output) => addOutput(output),
+    dl : (file) => addOutput({
+      text : `<span>Machin texte de merde ${file.filename}</span><a href=${file.link} download><img src=../../dl.png></a>`,
+      type : 'success'
+    })
   }
 }

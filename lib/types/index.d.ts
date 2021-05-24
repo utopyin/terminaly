@@ -35,6 +35,7 @@ export interface commandInterface {
 }
 export interface nativeFunctionsInterface {
     echo: (output: outputInterface) => void;
+    dl: (file: fileInterface) => void;
 }
 export interface terminalyInterface {
     id?: string;
@@ -54,5 +55,9 @@ export interface checkArgsInterface {
     argument: string | number | undefined;
     isValid: boolean;
     message: string;
+}
+export interface fileInterface {
+    link: string;
+    filename: string;
 }
 //# sourceMappingURL=index.d.ts.map
