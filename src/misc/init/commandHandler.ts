@@ -61,7 +61,7 @@ export default (
 
   commandHandler.on('error', (commandName: string) => {
     natives.echo({
-      text: `The command <span style="color: red">${commandName.toLowerCase()}</span> does not exist.`,
+      text: `The command <span style="color: red">${commandName}</span> does not exist.`,
       type: 'error'
     })
   });

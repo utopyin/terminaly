@@ -39,7 +39,10 @@ export function TerminalyWindow ({
       const editor = document.querySelector(`#terminaly_field_${id}`);
       if (cmdHistory[cmdHistoryIndex] !== undefined) {
         if (editor !== null) {
-          editor.innerHTML = cmdHistory[cmdHistoryIndex]
+          editor.innerHTML = cmdHistory[cmdHistoryIndex];
+          const temp = document.createElement('DIV');
+          temp.innerHTML = cmdHistory[cmdHistoryIndex];
+          setInputText(temp.textContent);
           const range = document.createRange();
           const sel = window.getSelection();
           range.selectNodeContents(editor);
