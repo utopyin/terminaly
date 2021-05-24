@@ -6,8 +6,6 @@ import TerminalyInstance from './terminal'
 
 import '../styles/index.css';
 
-
-
 const defaultStyle = {
   fontSize: "14px",
   color: "white",

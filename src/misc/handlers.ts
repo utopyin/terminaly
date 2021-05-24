@@ -47,6 +47,6 @@ export function handleKeyDown(
 export function handleInput(
   event: React.FormEvent<HTMLDivElement>,
   setInputText: React.Dispatch<React.SetStateAction<string | null>>) {
-
+  
   setInputText((event.target as Element).textContent)
 }
