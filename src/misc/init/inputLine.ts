@@ -3,37 +3,42 @@ import { commandKeywordInterface } from '../../types'
 class Cursor {
   
   static getCurrentCursorPosition(parentElement: HTMLElement) {
-      var selection = window.getSelection(),
-          charCount = -1,
-          node;
-      
-      if (selection?.focusNode) {
-          if (Cursor._isChildOf(selection?.focusNode, parentElement)) {
-              node = selection.focusNode; 
-              charCount = selection.focusOffset;
+    var selection = window.getSelection(),
+        charCount = -1,
+        isLooping,
+        node;
+    
+    if (selection?.focusNode) {
+        if (Cursor._isChildOf(selection?.focusNode, parentElement)) {
+            node = selection.focusNode; 
+            charCount = selection.focusOffset;
+            while (node) {
+              if (node === parentElement) {
+                if (!isLooping) {
+                  if (node.textContent !== null) {
+                    charCount += node.textContent.length - 1
+                  }
+                }
+                break;
+              }
               
-              while (node) {
-                if (node === parentElement) {
-
+              if (node.previousSibling) {
+                isLooping = true
+                node = node.previousSibling;
+                if (node.textContent !== null) {
+                  charCount += node.textContent.length
+                }
+              } else {
+                isLooping = true
+                node = node.parentNode;
+                if (node === null) {
                   break;
                 }
-                
-                if (node.previousSibling) {
-                  node = node.previousSibling;
-                  if (node.textContent !== null) {
-                    charCount += node.textContent.length
-                  }
-                } else {
-                    node = node.parentNode;
-                    if (node === null) {
-                      break;
-                    }
-                }
               }
-          }
-      } 
-      
-      return charCount;
+            }
+        }
+    } 
+    return charCount;
   }
   
   static setCurrentCursorPosition(chars: number, element: Element) {
@@ -94,63 +99,7 @@ class Cursor {
 
 export default function(keywords: commandKeywordInterface[], id: string) {
   const editor = document.getElementById(`terminaly_field_${id}`);
-  
-  function getTextSegments(element: HTMLElement | ChildNode): Array<{text: string | null, node: ChildNode}> {
-    const textSegments: Array<{text: string | null, node: ChildNode}> = [];
-    Array.from(element.childNodes).forEach((node) => {
-      switch(node.nodeType) {
-        case Node.TEXT_NODE:
-          textSegments.push({text: node.nodeValue, node});
-          break;
-            
-        case Node.ELEMENT_NODE:
-          textSegments.splice(textSegments.length, 0, ...(getTextSegments(node)));
-          break;
-            
-        default:
-          throw new Error(`Unexpected node type: ${node.nodeType}`);
-      }
-    });
-    return textSegments;
-  }
     
-  function restoreSelection(absoluteAnchorIndex: number, absoluteFocusIndex: number) {
-    if (editor) {
-      const sel = window.getSelection();
-      if (sel) {
-        const textSegments = getTextSegments(editor);
-        let anchorNode: HTMLElement | ChildNode = editor;
-        let anchorIndex = 0;
-        let focusNode: HTMLElement | ChildNode = editor;
-        let focusIndex = 0;
-        let currentIndex = 0;
-        textSegments.forEach(({text, node}) => {
-          const startIndexOfNode = currentIndex;
-          const endIndexOfNode = startIndexOfNode + (text ? text.length : 0);
-
-          console.log(
-            startIndexOfNode,
-            absoluteAnchorIndex,
-            endIndexOfNode
-          );
-
-          if (startIndexOfNode <= absoluteAnchorIndex && absoluteAnchorIndex <= endIndexOfNode) {
-            anchorNode = node;
-            anchorIndex = absoluteAnchorIndex - startIndexOfNode;
-          }
-
-          if (startIndexOfNode <= absoluteFocusIndex && absoluteFocusIndex <= endIndexOfNode) {
-            focusNode = node;
-            focusIndex = absoluteFocusIndex - startIndexOfNode;
-          }
-
-          currentIndex += text ? text.length : 0
-        });
-        sel.setBaseAndExtent(anchorNode, anchorIndex, focusNode, focusIndex);
-      }
-    }
-  }
-  
   function renderText(text: string) {
 
     keywords.forEach(keyword => {
@@ -164,39 +113,12 @@ export default function(keywords: commandKeywordInterface[], id: string) {
     return text
   }
 
-  function updateEditor() {
-    if (editor) {
-      const sel = window.getSelection();
-      if (sel) {
-        const textSegments = getTextSegments(editor);
-        const textContent = textSegments.map(({text}) => text).join('');
-        let anchorIndex = 0;
-        let focusIndex = 0;
-        let currentIndex = 0;
-        textSegments.forEach(({text, node}) => {
-          if (node === sel.anchorNode) {
-            anchorIndex = currentIndex + sel.anchorOffset;
-          }
-          if (node === sel.focusNode) {
-            focusIndex = currentIndex + sel.focusOffset;
-          }
-          text ? currentIndex += text.length : null;
-        });
-        
-        editor.innerHTML = renderText(textContent);
-        
-        restoreSelection(anchorIndex, focusIndex);
-      }
-    }
-  }
-
   function handleInput(this: HTMLElement) {
-    
-    let offset = Cursor.getCurrentCursorPosition(this);
+    const offset = Cursor.getCurrentCursorPosition(this);
     this.textContent !== null ?
       this.innerHTML = renderText(this.textContent) : null
-    Cursor.setCurrentCursorPosition(offset, this);
-    this.focus();
+
+      Cursor.setCurrentCursorPosition(offset, this);
   }
 
   editor?.addEventListener('input', handleInput);
