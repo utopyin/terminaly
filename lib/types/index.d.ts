@@ -66,7 +66,7 @@ export interface checkArgsInterface {
  * @param link must be an URL link and not an file relative path
  */
 export interface attachementsInterface {
-    filename: string;
+    filename?: string;
     link: string;
 }
 //# sourceMappingURL=index.d.ts.map

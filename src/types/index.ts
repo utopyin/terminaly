@@ -81,6 +81,6 @@ export interface checkArgsInterface {
  */
 
 export interface attachementsInterface {
-  filename: string;
+  filename?: string;
   link: string;
 }

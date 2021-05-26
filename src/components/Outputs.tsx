@@ -1,46 +1,40 @@
 import React from 'react'
 import { attachementsInterface, outputInterface, AttachsProps, OutputsProps } from '../types'
 
-function fetcha(link: string) : void {
-  const extension = link.split('.').slice(-1, link.split('.').length)
+function fetcha({link, filename}: attachementsInterface) : void {
   fetch(link, {
     method: 'GET'
   })
   .then((response) => response.blob())
   .then((blob) => {
-    // Create blob link to download
-    const url = window.URL.createObjectURL(
-      new Blob([blob]),
-    );
+    const extension = blob.type.split('/').slice(-1, blob.type.split('/').length)
+    const url = window.URL.createObjectURL(new Blob([blob]));
     const link = document.createElement('a');
     link.href = url;
-    
     link.setAttribute(
       'download',
-      `filename.${extension}`,
+      `${filename || 'default'}.${extension}`,
     );
-
-    // Append to html link element page
     document.body.appendChild(link);
-
-    // Start download
     link.click();
-
-    // Clean up and remove the link
     link.parentNode?.removeChild(link);
   });
 }
 
 function Attach(file: attachementsInterface) {
-  return <div className='attachment-object' onClick={() => fetcha(file.link)}><span className='terminaly_attachment'>Click to download {file.filename}.</span></div>
+  return (
+    <div className='attachment-object' onClick={() => fetcha(file)}>
+      <span style={{cursor: 'pointer', textDecoration: 'underline'}} className='terminaly_attachment'>Click to download {file.filename || 'file'}.</span>
+    </div>
+  )
 }
 
 
 function Attachs({attachments}: AttachsProps) {
   return (
     <div className="attachments-container">
-      {attachments?.map(file => {
-        return <Attach key={file.filename}{...file}/>
+      {attachments?.map((file, index) => {
+        return <Attach key={index} {...file}/>
       })}
     </div>
   )
