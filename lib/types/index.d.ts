@@ -18,7 +18,7 @@ export interface terminalyWindowInterface {
 }
 export interface outputInterface {
     text: string;
-    type: outputType;
+    type: 'success' | 'error' | 'link' | 'help' | 'any';
     attachments?: attachementsInterface[];
     onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     onMouseOver?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -28,7 +28,6 @@ export interface errorInterface {
     natives: nativeFunctionsInterface;
 }
 export declare type argumentType = 'string' | 'number' | 'keyword' | 'link' | 'any';
-export declare type outputType = 'success' | 'error' | 'link' | 'help' | 'any';
 export interface argumentInterface {
     required: boolean;
     type: argumentType;
@@ -62,8 +61,12 @@ export interface checkArgsInterface {
     isValid: boolean;
     message: string;
 }
+/**
+ * Warning
+ * @param link must be an URL link and not an file relative path
+ */
 export interface attachementsInterface {
-    filename?: string;
+    filename: string;
     link: string;
 }
 //# sourceMappingURL=index.d.ts.map

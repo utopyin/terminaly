@@ -23,7 +23,7 @@ export interface terminalyWindowInterface {
 
 export interface outputInterface {
   text: string;
-  type: outputType;
+  type: 'success' | 'error' | 'link' | 'help' | 'any';
   attachments? : attachementsInterface[];
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onMouseOver?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -35,8 +35,6 @@ export interface errorInterface {
 }
 
 export type argumentType = 'string' | 'number' | 'keyword' | 'link' | 'any';
-export type outputType = 'success' | 'error' | 'link' | 'help' | 'any';
-
 export interface argumentInterface {
   required: boolean;
   type: argumentType;
@@ -83,6 +81,6 @@ export interface checkArgsInterface {
  */
 
 export interface attachementsInterface {
-  filename? : string;
-  link : string;
+  filename: string;
+  link: string;
 }

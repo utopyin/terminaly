@@ -2,11 +2,9 @@ import React from 'react'
 import { attachementsInterface, outputInterface, AttachsProps, OutputsProps } from '../types'
 
 function fetcha(link: string) : void {
+  const extension = link.split('.').slice(-1, link.split('.').length)
   fetch(link, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/pdf',
-    },
+    method: 'GET'
   })
   .then((response) => response.blob())
   .then((blob) => {
@@ -16,9 +14,10 @@ function fetcha(link: string) : void {
     );
     const link = document.createElement('a');
     link.href = url;
+    
     link.setAttribute(
       'download',
-      `FileName.png`,
+      `filename.${extension}`,
     );
 
     // Append to html link element page
