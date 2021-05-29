@@ -1,5 +1,5 @@
 import React from 'react'
-import { attachementsInterface, outputInterface, AttachsProps, OutputsProps } from '../types'
+import { attachementsInterface, outputInterface, attachsProps, outputsProps } from '../types'
 
 function fetcha({link, filename}: attachementsInterface) : void {
   fetch(link, {
@@ -30,7 +30,7 @@ function Attach(file: attachementsInterface) {
 }
 
 
-function Attachs({attachments}: AttachsProps) {
+function Attachs({attachments}: attachsProps) {
   return (
     <div className="attachments-container">
       {attachments?.map((file, index) => {
@@ -53,7 +53,7 @@ function Output({text, onMouseOver, onClick, attachments}: outputInterface) {
   )
 }
 
-export default function Outputs({outputs}: OutputsProps) {
+export default function Outputs({outputs}: outputsProps) {
   return (
     <div className="terminaly_outputs">
       {outputs.map((output, index) => <Output key={index} {...output} />)}

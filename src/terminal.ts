@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { commandKeywordInterface, terminalyInterface, commandInterface, nativeFunctionsInterface, outputInterface } from './types'
+import { commandKeywordInterface, terminalyInterface, commandInterface, outputInterface } from './types'
 import { nativeCommands } from './misc/natives'
 
 export default class Terminaly {
@@ -7,7 +7,7 @@ export default class Terminaly {
   id;
   sessionName;
   customProps;
-  customStyle;
+  style;
   commands;
   commandHandler;
   nativeHandler;
@@ -20,12 +20,12 @@ export default class Terminaly {
     id = '',
     sessionName,
     customProps,
-    customStyle
+    style
   }: terminalyInterface) {
     this.id = id;
     this.sessionName = sessionName;
     this.customProps = customProps;
-    this.customStyle = customStyle;
+    this.style = style;
     this.keywords = [];
     this.commands = nativeCommands
     this.commandHandler = new EventEmitter();

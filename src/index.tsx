@@ -3,20 +3,14 @@ import Outputs from './components/Outputs';
 import { init, handleKeyDown, handleInput, nativeFunctions } from './misc';
 import { outputInterface  } from './types'
 import TerminalyInstance from './terminal'
-
-import '../styles/index.css';
-
-const defaultStyle = {
-  fontSize: "14px",
-  color: "white",
-  keywordColor: "rgb(81, 246, 164)"
-}
+import createTheme from './themes';
+import '../css/index.css'
 
 export function TerminalyWindow ({
   id = "",
   sessionName,
   customProps,
-  customStyle,
+  style,
   commandHandler,
   nativeHandler,
   keywords,
@@ -28,8 +22,7 @@ export function TerminalyWindow ({
   const [outputs, setOutputs] = useState<outputInterface[]>([]);
   const [cmdHistory, setCmdHistory] = useState<string[]>([]);
   const [cmdHistoryIndex, setCmdHistoryIndex] = useState<number | null>(null);
-  const style = {...defaultStyle, ...customStyle};
-
+  const themes = createTheme(style)
   const natives = nativeFunctions(setOutputs)
   
   useEffect(() => init(setIP, keywords, id, natives, commandHandler, nativeHandler, commands), [])
@@ -66,16 +59,20 @@ export function TerminalyWindow ({
       className="terminaly_container"
       {...customProps}
       style={{
-        ...style,
-        ['--terminaly_keyword' as any]: style.keywordColor
+        ...themes.terminaly,
+        ...themes.variables,
       }}>
       <div
+        style={{
+          ...themes.terminaly,
+        }}
         className='terminaly_'
         id={`terminaly_${id}`}>
         <Outputs outputs={outputs}/>
-        <div className="terminaly_line">
-          <p>{sessionName ? sessionName : IP ? IP : "user"}</p>
+        <div style={{...themes.input.container}} className="terminaly_line">
+          <p style={{...themes.input.name}}>{sessionName ? sessionName : IP ? IP : "user"}</p>
           <div
+            style={{...themes.input.field}}
             contentEditable
             onInput={(event) => handleInput(event, setInputText)}
             onKeyDown={(event) => {
@@ -94,7 +91,7 @@ export function TerminalyWindow ({
           </div>
         </div>
       </div>
-      {!customStyle?.hideBar && <div className="terminaly_bar"></div>}
+      <div style={{...themes.bar}} className="terminaly_bar"></div>
     </div>
   )
 }

@@ -1,4 +1,4 @@
 /// <reference types="react" />
-import { OutputsProps } from '../types';
-export default function Outputs({ outputs }: OutputsProps): JSX.Element;
+import { outputsProps } from '../types';
+export default function Outputs({ outputs }: outputsProps): JSX.Element;
 //# sourceMappingURL=Outputs.d.ts.map

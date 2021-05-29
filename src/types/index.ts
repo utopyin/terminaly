@@ -1,15 +1,51 @@
 import { CSSProperties } from 'react'
 
+export type boolish = "true" | "false" | boolean;
+
+type CSSObject = object | CSSProperties;
+
 export interface customStyleInterface extends CSSProperties {
-  keywordColor?: string;
-  hideBar?: boolean;
+  terminaly?: CSSProperties;
+  bar?: CSSProperties;
+  input?: {
+    container: CSSProperties;
+    name: CSSProperties;
+    field: CSSProperties;
+  };
+  outputs?: {
+    container: CSSProperties;
+    item: CSSProperties;
+  };
+  variables?: {};
+  textColor?: string | number;
+  keywordColor?: string | number;
 }
 
-export interface OutputsProps {
+export interface themeInterface {
+  terminaly: CSSProperties;
+  bar: CSSProperties;
+  input: {
+    container: CSSProperties;
+    name: CSSProperties;
+    field: CSSProperties;
+  };
+  outputs: {
+    container: CSSProperties;
+    item: CSSProperties;
+  };
+  variables: {};
+}
+
+export interface stylePropertyInterface {
+  theme: "default" | "grass",
+  custom?: customStyleInterface;
+}
+
+export interface outputsProps {
   outputs: outputInterface[]
 }
 
-export interface AttachsProps {
+export interface attachsProps {
   attachments: attachementsInterface[] | undefined
 }
 
@@ -17,7 +53,7 @@ export interface terminalyWindowInterface {
   id: string | number;
   customCommands: commandInterface[];
   customProps?: object;
-  customStyle?: customStyleInterface;
+  customStyle?: stylePropertyInterface;
   sessionName?: string;
 }
 
@@ -54,8 +90,8 @@ export interface nativeFunctionsInterface {
 
 export interface terminalyInterface {
   id?: string;
+  style: stylePropertyInterface;
   customProps?: object;
-  customStyle?: customStyleInterface;
   sessionName?: string;
 }
 

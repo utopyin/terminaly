@@ -4,7 +4,7 @@ export default class Terminaly {
     id: string;
     sessionName: string | undefined;
     customProps: object | undefined;
-    customStyle: import("./types").customStyleInterface | undefined;
+    style: import("./types").stylePropertyInterface;
     commands: commandInterface[];
     commandHandler: EventEmitter;
     nativeHandler: EventEmitter;
@@ -12,6 +12,6 @@ export default class Terminaly {
     echo: (output: outputInterface) => void;
     addCommand: (command: commandInterface) => void;
     addCommands: (commands: commandInterface[]) => void;
-    constructor({ id, sessionName, customProps, customStyle }: terminalyInterface);
+    constructor({ id, sessionName, customProps, style }: terminalyInterface);
 }
 //# sourceMappingURL=terminal.d.ts.map

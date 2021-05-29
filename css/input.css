@@ -1,0 +1,16 @@
+div.terminaly_line {
+  display: flex;
+  align-items: flex-start;
+}
+
+div.terminaly_line .terminaly_field {
+  outline: none;
+  border: none;
+  overflow-wrap: anywhere;
+  white-space: pre;
+  width: 100%;
+}
+
+div.terminaly_line .terminaly_keyword {
+  color: var(--tmly-keyword-color);
+}
